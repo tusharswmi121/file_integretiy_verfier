@@ -1,0 +1,8 @@
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/config/WebConfig.java
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/controller/FileController.java
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/repository/FileHistoryRepository.java
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/model/FileHistory.java
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/BackendApplication.java
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/model/FileRecord.java
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/repository/FileRecordRepository.java
+/Users/tusharswami/Desktop/data-integrity-project/backend/src/main/java/com/example/backend/service/FileService.java

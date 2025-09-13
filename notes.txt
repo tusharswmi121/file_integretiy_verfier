@@ -1,0 +1,165 @@
+1.  crow_all.h
+  a.  is a single C++ file that gives you the power to build a web server — just like how Node.js uses Express.js to build APIs.
+  b.  You write your logic in C++ (like upload a file, calculate hash).
+    ❌ But C++ by itself doesn't know how to handle things like:
+    “GET /verify”
+    “POST /upload”
+    or how to send/receive HTTP data
+  c.  crow_all.h adds that web capability to your C++ code.
+
+2.  (flow)
+
+[Frontend (React)] → sends file → [C++ Backend]
+                                ↳ computes hash
+                                ↳ stores/checks hash in MySQL
+                                ↳ sends result back → [Frontend shows status]
+
+
+3.  What Is a Backend Server?
+    -->  Your C++ backend server is like a helper machine that
+    --> Receives file data from the frontend (browser)
+    --> Calculates hash of that file
+    --> Stores that hash into a MySQL database, or compares it with what's stored
+    --> Sends back result (e.g., "OK", "File tampered", etc.)
+
+4. How backend start and run
+    --> When you build and run this C++ backend, this part starts the web server:
+        app.port(18080).multithreaded().run();
+    --> It runs onro
+    --> It's waiting for the frontend to send file upload or ask for verification
+
+5. What Does Backend Handle?
+    --> You defined routes using Crow (in main.cpp):
+        a. /upload route
+            CROW_ROUTE(app, "/upload").methods("POST"_method)(...)
+
+        b. /verify route
+            CROW_ROUTE(app, "/verify").methods("GET"_method)(...)
+
+6. /upload route
+    --> Frontend sends a file to this route
+    --> Backend saves file locally
+    --> Computes SHA-256 hash
+    --> Stores file name + hash in MySQL
+
+7. /verify route
+    --> Frontend requests to verify a file
+    --> Backend re-computes the file hash
+    --> Compares it with hash in database
+    --> Replies with ✅ or ❌
+
+
+8. http://localhost:18080
+    --> This is your C++ backend server address.
+    --> It means:
+        localhost → your own computer
+        18080 → the port number your server is listening on
+    --> This is the base URL.
+
+9. Routes like /upload and /verify
+    --> These are paths you add after the base URL to do specific actions:
+        a.  http://localhost:18080/upload → handles file uploads
+        b.  http://localhost:18080/verify → handles file verification
+
+10.  URL What It Does
+    --> http://localhost:18080	Just the server (no action)
+    --> http://localhost:18080/upload	Upload a file (POST method)
+    --> http://localhost:18080/verify	Verify file integrity (GET)
+
+11. 
+
+
+-----------------------------------Main java project--------------------------------------------
+
+1. “In my React frontend, I used Axios to send HTTP POST requests to the Spring
+    Boot backend for file upload and verification. The UI is built in a component 
+    called FileUpload.js, and the backend responds with success or mismatch status
+    based on the file’s hash. I styled it using a separate CSS file and managed routing
+    using the main App.js.
+
+
+2. package.json This file tracks:
+   --> What libraries you use (like axios)
+   --> What command runs your app (npm start)
+   --> Your app's metadata
+
+
+3. src/components/FileUpload.js
+    --> Lets the user select a file
+    --> Sends file to backend using Axios
+    --> Displays result messages like:
+        ✅ "File uploaded successfully"
+        ❌ "File mismatch"  
+        📂 "File not found"
+
+
+4. src/FileUpload.css
+    --> This file contains the styling (CSS) for your React component.
+    --> It controls:
+        Button colors
+        Layout
+        Text spacing, fonts, etc.
+
+
+5. IN frontend we have 3 files 
+    a. index.html inside public/
+    b. index.js inside src/
+    c. App.js  inside src/
+
+
+6. User opens webpage (index.html)
+      ⬇️
+  index.js says: “Put App.js inside #root div”
+      ⬇️
+  App.js loads and shows FileUpload component
+
+
+7. src/App.js = This is your main React component — like the heart of your app's logic/UI.
+    --> You write your website's UI here using JavaScript + HTML (called JSX).
+    --> It loads and shows your components (like your FileUpload component).
+
+    -->     return (
+            <div>
+            <FileUpload />
+            </div>
+        );
+
+    --> here in above code we are loading the FileUpload from './components/FileUpload'
+
+    --> we use below statement at top of react 
+        import FileUpload from './components/FileUpload';
+
+
+8.  src/index.js = 
+    --> This is the entry point of your React app.
+    --> “Hey React, take whatever is in App.js and show it inside the browser.”
+    --> It connects your React code to a real HTML page (inside public/index.html).
+
+    --> below line.
+
+    import React from 'react';
+    import ReactDOM from 'react-dom/client';
+    import App from './App';
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+
+
+9. public/index.html =
+    --> This is the main HTML page shown to the user — like the base webpage.
+    --> It only has one empty <div> called root.
+    --> Your entire React app gets placed inside that div.
+
+    --> below line
+
+        <body>
+        <div id="root"></div>
+        </body>
+
+
+9. src/App.js =
+    --> Yes — App.js is the heart of your React UI, 
+    --> and instead of cramming all the code in one file, 
+    --> we: Create small reusable components like FileUpload.js,
+    --> Then import and use them inside App.js to keep things clean and organized
+

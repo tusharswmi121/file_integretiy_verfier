@@ -1,0 +1,6 @@
+com/example/backend/repository/FileRecordRepository.class
+com/example/backend/config/WebConfig.class
+com/example/backend/BackendApplication.class
+com/example/backend/controller/FileController.class
+com/example/backend/service/FileService.class
+com/example/backend/model/FileRecord.class
